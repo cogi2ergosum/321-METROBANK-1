@@ -1,6 +1,7 @@
 package threading;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ProducerConsumer {
 	int QUOTA = 3;
@@ -19,7 +20,9 @@ public class ProducerConsumer {
 }
 
 class Producer extends Thread {
+	String[] fruits = {"apple", "grapes", "banana", "melon"};
 	private ArrayList<String> data;
+						Random random = new Random();
 	boolean myTurn;
 	int quota;
 
@@ -34,10 +37,12 @@ class Producer extends Thread {
 				myTurn = data.size() < quota;
 				if (myTurn) {
 					for (int i = 0; i < quota; i++) {
-						System.out.println("Producer produces an item");
-						data.add("item");
+						String rand = fruits[random.nextInt(fruits.length)];
+						System.out.println("Producer produces: " + rand);
+						data.add(rand);
 						try { Thread.sleep(1000); } catch (Exception e) {}
 					}
+					System.out.println("-----------------------");
 					try {
 						data.notify();
 						data.wait();
@@ -73,10 +78,11 @@ class Consumer extends Thread {
 				myTurn = data.size() >= quota;
 				if (myTurn) {
 					for (int i = 0; i < quota; i++) {
-						System.out.println("Consumer consumes the item");
-						data.remove(0);
+						String value = data.remove(0);
+						System.out.println("Consumer consumes: " + value);
 						try { Thread.sleep(1000); } catch (Exception e) {}
 					}
+					System.out.println("-----------------------");
 					try {
 						data.notify();
 						data.wait();
@@ -95,5 +101,5 @@ class Consumer extends Thread {
 		}
 
 
-	}
+	} 
 }
