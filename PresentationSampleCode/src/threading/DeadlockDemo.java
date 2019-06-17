@@ -1,23 +1,8 @@
 package threading;
-/**
- * @author Raf Lopez
- * 
- * @
- * 
- * Simple demonstration of a deadlocking class that freezes the 
- * program indeterminately through object-locking.
- * Try running the program multiple times to end with 
- * different outcomes.
- * 
- * Setting {@code FORCE_TIMINGS } to 1 will use timing routines to always ensure
- * a deadlocked state. Note that setting the value to 0 may not
- * allow some console-bound text to display, as the console-rendering
- * thread may not have a chance to catch up.
- *
- */
+
 public class DeadlockDemo {
 	/* Set to 1 to force deadlocks all the time */
-	public static int FORCE_TIMINGS = 0;
+	public static int FORCE_TIMINGS = 1;
 	
 	public static void pauseInSecs(long duration) {
 		try { Thread.sleep(duration * 1000); } catch (Exception e) { }
